@@ -4,13 +4,14 @@ public class Student {
     private long student_ID;
     private String student_name;
     private String student_surname;
-
+    private static long counter = 0;
     public long getStudent_ID() {
         return student_ID;
     }
 
-    public void setStudent_ID(long student_ID) {
-        this.student_ID = student_ID;
+    public void setStudent_ID() {
+        this.student_ID= counter;
+        counter++;
     }
 
     public String getStudent_name() {
@@ -18,7 +19,10 @@ public class Student {
     }
 
     public void setStudent_name(String student_name) {
-        this.student_name = student_name;
+        if (student_name != null && student_name.matches("[A-Z]{1}[a-z]{1,20}"))
+            this.student_name= student_name;
+        else
+            this.student_name = "undefined";
     }
 
     public String getStudent_surname() {
@@ -26,21 +30,27 @@ public class Student {
     }
 
     public void setStudent_surname(String student_surname) {
-        this.student_surname = student_surname;
+        if (student_surname != null && student_surname.matches("[A-Z]{1}[a-z]{1,20}"))
+            this.student_surname= student_surname;
+        else
+            this.student_surname = "undefined";
     }
 
-    public Student(long student_ID, String student_name, String student_surname) {
-        this.student_ID = student_ID;
-        this.student_name = student_name;
-        this.student_surname = student_surname;
+    public Student(){
+        setStudent_ID();
+        setStudent_name("Pablo");
+        setStudent_surname("Escobar");
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "student_ID=" + student_ID +
-                ", student_name='" + student_name + '\'' +
-                ", student_surname='" + student_surname + '\'' +
-                '}';
+    public Student( String student_name, String student_surname) {
+        setStudent_ID();
+        setStudent_name(student_name);
+        setStudent_surname(student_surname);
+
+    }
+
+    public String toString()
+    {
+        return student_ID + ": " + student_name + " " + student_surname ;
     }
 }

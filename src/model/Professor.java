@@ -60,27 +60,26 @@ private static long counter = 0;
     }
 ///// constructor
 
-    public Professor(){
+    //3. constructors
+    public Professor() {
         setProf_ID();
         setProf_name("John");
-        setProf_surname("wick");
+        setProf_surname("Big");
         setDegree(Degree.other);
     }
-    public Professor(String prof_name, String prof_surname, Degree degree) {
+
+    public Professor(String prof_name, String prof_surname, Degree profDegree) {
         setProf_ID();
         setProf_name(prof_name);
         setProf_surname(prof_surname);
-        setDegree(profdegree);
-
+        setDegree(profDegree);
     }
 
+
+    //4. toString
     @Override
-    public String toString() {
-        return "Professor{" +
-                "Prof_ID=" + Prof_ID +
-                ", Prof_name='" + Prof_name + '\'' +
-                ", Prof_surname='" + Prof_surname + '\'' +
-                ", Degree='" + profdegree + '\'' +
-                '}';
+    public String toString()
+    {
+        return Prof_ID + ": " + Prof_name + " " + Prof_surname + "(" + profdegree + ")";
     }
 }
