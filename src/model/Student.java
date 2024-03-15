@@ -4,6 +4,7 @@ public class Student {
     private long student_ID;
     private String student_name;
     private String student_surname;
+    private String personCode;
     private static long counter = 0;
     public long getStudent_ID() {
         return student_ID;
@@ -36,21 +37,33 @@ public class Student {
             this.student_surname = "undefined";
     }
 
+    public String getPersonCode()    {
+       return personCode;
+    }
+    public void setPersonCode(String personCode) {
+        if(personCode != null && personCode.matches("[0-9]{6}-[0-9]{5}"))
+            this.personCode = personCode;
+        else
+            this.personCode = "Undefinied";
+    }
+
     public Student(){
         setStudent_ID();
         setStudent_name("Pablo");
         setStudent_surname("Escobar");
+        setPersonCode("123456-65432");
     }
 
-    public Student( String student_name, String student_surname) {
+    public Student( String student_name, String student_surname,String personCode) {
         setStudent_ID();
         setStudent_name(student_name);
         setStudent_surname(student_surname);
+        setPersonCode(personCode);
 
     }
 
     public String toString()
     {
-        return student_ID + ": " + student_name + " " + student_surname ;
+        return student_ID + ": " + student_name + " " + student_surname +" [" + personCode + "]" ;
     }
 }
