@@ -1,78 +1,45 @@
 package model;
 
-public class Professor {
-    private long Prof_ID;
-    private String Prof_name;
-    private String Prof_surname;
-    private  Degree profdegree;
-private static long counter = 0;
+public class Professor extends Person{
+    //1. variables
+    private long pID;
+    //private String name;
+    //private String surname;
+    private Degree profDegree;
 
-
-///// Getter
-    public long getProf_ID() {
-
-        return Prof_ID;
+    private static long counter = 0;
+    //2. set and get
+    public long getpID() {
+        return pID;
     }
-
-
-
-    public String getProf_name() {
-        return Prof_name;
-    }
-
-
-
-    public String getProf_surname() {
-        return Prof_surname;
-    }
-
-
-
-    public Degree getDegree() {
-        return profdegree;
-    }
-
-
-    //// Setter
-    public void setProf_ID() {
-        this.Prof_ID= counter;
+    public void setpID() {
+        this.pID = counter;
         counter++;
     }
-    public void setProf_name(String prof_name) {
-        if (prof_name != null && prof_name.matches("[A-Z]{1}[a-z]{1,20}"))
-            this.Prof_name= prof_name;
-        else
-            this.Prof_name = "undefined";
 
+    public Degree getProfDegree() {
+        return profDegree;
     }
-    public void setProf_surname(String prof_surname) {
-        if (prof_surname!= null && prof_surname.matches("[A-Z]{1}[a-z]{1,20}"))
-            this.Prof_surname= prof_surname;
+    public void setProfDegree(Degree profDegree) {
+        if(profDegree != null)
+            this.profDegree = profDegree;
         else
-            this.Prof_surname = "undefined";
+            this.profDegree = Degree.other;
     }
 
-    public void setDegree(Degree degree) {
-        if(degree != null)
-            this.profdegree = degree;
-        else
-            this.profdegree = Degree.other;
-    }
-///// constructor
 
     //3. constructors
     public Professor() {
-        setProf_ID();
-        setProf_name("John");
-        setProf_surname("Big");
-        setDegree(Degree.other);
+        super();
+        setpID();
+
+        setProfDegree(Degree.other);
     }
 
-    public Professor(String prof_name, String prof_surname, Degree profDegree) {
-        setProf_ID();
-        setProf_name(prof_name);
-        setProf_surname(prof_surname);
-        setDegree(profDegree);
+    public Professor(String name, String surname,String personCode, Degree profDegree) {
+        super(name, surname, personCode);
+        setpID();
+        setProfDegree(profDegree);
     }
 
 
@@ -80,6 +47,7 @@ private static long counter = 0;
     @Override
     public String toString()
     {
-        return Prof_ID + ": " + Prof_name + " " + Prof_surname + "(" + profdegree + ")";
+        return pID + ": " +super.toString()+ " (" + profDegree + ")";
     }
+    //5. other functions
 }

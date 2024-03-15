@@ -1,73 +1,77 @@
 package model;
 
 public class Course {
-    private long c_ID;
+    //1.variables
+    private long cID;
     private String title;
-    private int creditPoint;
+    private int creditPoints;
     private Professor professor;
-    private static long counter = 100000;
-    public long getC_ID() {
-        return c_ID;
-    }
 
+    private static long counter = 100000;
+
+
+
+    //2.get and set
+    public long getcID() {
+        return cID;
+    }
+    public void setcID() {
+        this.cID = counter;
+        counter++;
+    }
     public String getTitle() {
         return title;
     }
-
-    public int getCreditPoint() {
-        return creditPoint;
+    public void setTitle(String title) {
+        if(title != null && title.matches("[A-Za-z 0-9]{4,40}"))
+            this.title = title;
+        else
+            this.title = "Undefined";
     }
-
+    public int getCreditPoints() {
+        return creditPoints;
+    }
+    public void setCreditPoints(int creditPoints) {
+        if(creditPoints > 0 && creditPoints <= 20)
+            this.creditPoints = creditPoints;
+        else
+            this.creditPoints = 2;
+    }
     public Professor getProfessor() {
         return professor;
     }
-
-    // setter
-
-    public void setC_ID() {
-        this.c_ID = counter;
-        counter++;
-    }
-
-    public void setTitle(String title) {
-        if (title != null && title.matches("[A-Z a-z 0-9]{4,40}"))
-            this.title= title;
-        else
-            this.title = "undefined";
-    }
-
-    public void setCreditPoint(int creditPoint) {
-        if (creditPoint > 0 && creditPoint <= 20)
-            this.creditPoint = creditPoint;
-        else
-            this.creditPoint = 2;
-        this.creditPoint = creditPoint;
-    }
-
     public void setProfessor(Professor professor) {
         if(professor != null)
             this.professor = professor;
         else
             this.professor = new Professor();
-
     }
 
-    public Course(){
-        setC_ID();
-        setTitle("Java");
-
-        setCreditPoint(4);
+    //3.constructors
+    public Course() {
+        setcID();
+        setTitle("JAVA");
+        setCreditPoints(4);
         setProfessor(new Professor());
     }
-    public Course(String title, int creditPoint, Professor professor){
-        setC_ID();
+
+    public Course(String title, int creditPoints, Professor professor) {
+        setcID();
         setTitle(title);
-        setCreditPoint(creditPoint);
+        setCreditPoints(creditPoints);
         setProfessor(professor);
     }
 
+
+    //4.toSTring
     @Override
     public String toString() {
-        return c_ID + ": " + title +" (" + creditPoint + "cp), " + professor.toString();
+        return cID + ": " + title + " (" + creditPoints + " CP), "
+                + professor.getName().charAt(0) + ". " + professor.getSurname();
     }
+
+
+
+
+    //5.other functions
 }

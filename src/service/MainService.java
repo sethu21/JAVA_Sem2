@@ -12,12 +12,12 @@ public class MainService {
     private static ArrayList<Grade> allGrades = new ArrayList<Grade>();
 
     public static void main(String[] args) {
-        Professor pr1 = new Professor();//John Big - default Professor
-        Professor pr2 = new Professor("Karina", "Skirmante", Degree.mg);
-        Professor pr3 = new Professor("Estere", "Vitola", Degree.mg);
-        Professor pr4 = new Professor("Marcis", "Naktins", Degree.mg);
+        Professor pr1 = new Professor();// John Big - default Professor
+        Professor pr2 = new Professor("Karina", "Skirmante",122334-34567, Degree.mg);
+        Professor pr3 = new Professor("Estere", "Vitola", 213243-23456,Degree.mg);
+        Professor pr4 = new Professor("Marcis", "Naktins", 124567-45673,Degree.mg);
         allProfessors.addAll(Arrays.asList(pr1, pr2, pr3, pr4));
-        //TODO take a look to ArrayList class in JAVA documentations
+        // TODO take a look to ArrayList class in JAVA documentations
         for (int i = 0; i < allProfessors.size(); i++) {
             System.out.println(allProfessors.get(i));
         }
@@ -27,8 +27,7 @@ public class MainService {
         }
         System.out.println("------------------------------");
 
-
-        Student st1 = new Student();//Lara Bernardes student
+        Student st1 = new Student();// Lara Bernardes student
         Student st2 = new Student("Viktors", "Kokin", "123456-09876");
         Student st3 = new Student("Davyd", "Akimov", "121298-67894");
         allStudents.addAll(Arrays.asList(st1, st2, st3));
@@ -36,7 +35,6 @@ public class MainService {
         for (Student tempSt : allStudents) {
             System.out.println(tempSt);
         }
-
 
         Course c1 = new Course();
         Course c2 = new Course("Data Structure", 2, pr3);
@@ -51,10 +49,10 @@ public class MainService {
         Grade gr1 = new Grade();
         Grade gr2 = new Grade(4, st3, c3);// 4 for Davyd in Networking
         Grade gr3 = new Grade(10, st3, c2);// 10 for Davyd in Data Structure
-        Grade gr4 = new Grade(7, st2, c2); //7 for Viktors in Data Structure
-        Grade gr5 = new Grade(8, st2, c3);//8 for Viktors in Networking
-        Grade gr6 = new Grade(10, st2, c1);//8 for Viktors in JAVA
-        Grade gr7 = new Grade(5, st1, c1);//5 for Lara in JAVA
+        Grade gr4 = new Grade(7, st2, c2); // 7 for Viktors in Data Structure
+        Grade gr5 = new Grade(8, st2, c3);// 8 for Viktors in Networking
+        Grade gr6 = new Grade(10, st2, c1);// 8 for Viktors in JAVA
+        Grade gr7 = new Grade(5, st1, c1);// 5 for Lara in JAVA
         allGrades.addAll(Arrays.asList(gr1, gr2, gr3, gr4, gr5, gr6, gr7));
 
         for (Grade tempGr : allGrades) {
@@ -62,40 +60,62 @@ public class MainService {
         }
 
         try {
-            System.out.println(st2.getStudent_name() + " " + st2.getStudent_surname() + " -> "
-                    + calculateAVGForStudent(st2));
+            System.out.println(st2.getName() + " " + st2.getSurname() + " -> " + calculateAVGForStudent(st2));
 
-            System.out.println(st2.getStudent_name() + " " + st2.getStudent_surname() + " -> "
-                    + calculateWeightedAVGForStudent(st2));
+            System.out.println(st2.getName() + " " + st2.getSurname() + " -> " + calculateWeightedAVGForStudent(st2));
 
-            System.out.println(st3.getStudent_name() + " " + st3.getStudent_surname() + " -> "
-                    + calculateAVGForStudent(st3));
+            System.out.println(st3.getName() + " " + st3.getSurname() + " -> " + calculateAVGForStudent(st3));
 
-            System.out.println(st3.getStudent_name() + " " + st3.getStudent_surname() + " -> "
-                    + calculateWeightedAVGForStudent(st3));
-
+            System.out.println(st3.getName() + " " + st3.getSurname() + " -> " + calculateWeightedAVGForStudent(st3));
 
             System.out.println(c2.getTitle() + " -> " + calculateAVGInCourse(c2));
             System.out.println(c3.getTitle() + " -> " + calculateAVGInCourse(c3));
 
+            System.out.println(pr4.getName() + " " + pr4.getSurname() + " leads "
+                    + calculateHowManyCoursesbyProfessor(pr4) + " courses");
 
-            System.out.println(pr4.getProf_name() + " " + pr4.getProf_surname() + " leads " +
-                    calculateHowManyCoursesbyProfessor(pr4) + " courses");
-
-            System.out.println(pr3.getProf_name() + " " + pr3.getProf_surname() + " leads " +
-                    calculateHowManyCoursesbyProfessor(pr3) + " courses");
+            System.out.println(pr3.getName() + " " + pr3.getSurname() + " leads "
+                    + calculateHowManyCoursesbyProfessor(pr3) + " courses");
 
             System.out.println("------------------------");
             for (Student tempSt : allStudents) {
-                System.out.println(tempSt.getStudent_name() + " " + tempSt.getStudent_surname() + " -> "
-                        + calculateAVGForStudent(tempSt));
+                System.out.println(
+                        tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
             }
 
             sortStudents();
             System.out.println("------------------------");
             for (Student tempSt : allStudents) {
-                System.out.println(tempSt.getStudent_name() + " " + tempSt.getStudent_surname() + " -> "
-                        + calculateAVGForStudent(tempSt));
+                System.out.println(
+                        tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+            }
+
+
+            System.out.println("---------------CRUD-----------------");
+
+
+            Student temp = retreiveStudentByPersonCode("123456-09876");
+            System.out.println("Retrieve student->" + temp);
+
+            createStudent("Sarah", "Green", "456789-87654");
+
+            System.out.println("Create student testing (Sarah) -> ");
+            for (Student tempSt : allStudents) {
+                System.out.println(tempSt);
+            }
+
+
+            updateStudentByPersonCode("Viktors", "Sorkin", "123456-09876");
+            System.out.println("Update student testing (Viktors) -> ");
+            for (Student tempSt : allStudents) {
+                System.out.println(tempSt);
+            }
+
+            deleteStudentByPersonCode("121298-67894");
+
+            System.out.println("Delete student testing (Davyd) -> ");
+            for (Student tempSt : allStudents) {
+                System.out.println(tempSt);
             }
 
 
@@ -103,17 +123,14 @@ public class MainService {
             System.out.println(e);
         }
 
-
     }
 
-
     public static float calculateAVGForStudent(Student inputStudent) throws Exception {
-        if (inputStudent == null) throw new Exception("Problems with input");
-
+        if (inputStudent == null)
+            throw new Exception("Problems with input");
 
         float sum = 0;
         int howMany = 0;
-
 
         for (Grade tempGr : allGrades) {
             if (tempGr.getStudent().equals(inputStudent)) {
@@ -122,25 +139,25 @@ public class MainService {
             }
         }
 
-
         return sum / howMany;
 
     }
 
-    //JAVA 6 and DataStructure 8 AVG = (6+8)/2 = 7
-    //JAVA 6 (4CP) DataStructure 8 (2CP) = ((6 * 4CP) + (8 * 2CP))/ (4CP +2CP) = (24 +16)/6= 40/6 = 6.666
+    // JAVA 6 and DataStructure 8 AVG = (6+8)/2 = 7
+    // JAVA 6 (4CP) DataStructure 8 (2CP) = ((6 * 4CP) + (8 * 2CP))/ (4CP +2CP) =
+    // (24 +16)/6= 40/6 = 6.666
 
     public static float calculateWeightedAVGForStudent(Student inputStudent) throws Exception {
-        if (inputStudent == null) throw new Exception("Problems with input");
+        if (inputStudent == null)
+            throw new Exception("Problems with input");
 
         float sum = 0;
         int howManyCP = 0;
 
-
         for (Grade tempGr : allGrades) {
             if (tempGr.getStudent().equals(inputStudent)) {
-                sum = sum + tempGr.getValue() * tempGr.getCourse().getCreditPoint();
-                howManyCP = howManyCP + tempGr.getCourse().getCreditPoint();
+                sum = sum + tempGr.getValue() * tempGr.getCourse().getCreditPoints();
+                howManyCP = howManyCP + tempGr.getCourse().getCreditPoints();
             }
         }
 
@@ -148,10 +165,9 @@ public class MainService {
 
     }
 
-
     public static float calculateAVGInCourse(Course inputCourse) throws Exception {
-        if (inputCourse == null) throw new Exception("Problems with input");
-
+        if (inputCourse == null)
+            throw new Exception("Problems with input");
 
         float sum = 0;
         int howMany = 0;
@@ -168,10 +184,10 @@ public class MainService {
     }
 
     public static int calculateHowManyCoursesbyProfessor(Professor inputProfessor) throws Exception {
-        if (inputProfessor == null) throw new Exception("Problems with input");
+        if (inputProfessor == null)
+            throw new Exception("Problems with input");
 
         int howMany = 0;
-
 
         for (Course tempCr : allCourses) {
             if (tempCr.getProfessor().equals(inputProfessor)) {
@@ -184,7 +200,6 @@ public class MainService {
 
     public static void sortStudents() throws Exception {
 
-
         for (int i = 0; i < allStudents.size(); i++) {
             for (int j = 0; j < allStudents.size(); j++) {
 
@@ -196,20 +211,19 @@ public class MainService {
                     allStudents.set(j, temp);
                 }
 
-
             }
         }
     }
 
-    //TODO
-    //calculates how many professors have phd as degree
+    // TODO
+    // calculates how many professors have phd as degree
 
     public static int howManyProfessorsHavePHD() {
 
         int howMany = 0;
 
         for (Professor tempPr : allProfessors) {
-            if (tempPr.getDegree().equals(Degree.phd)) {
+            if (tempPr.getProfDegree().equals(Degree.phd)) {
                 howMany++;
             }
         }
@@ -217,6 +231,9 @@ public class MainService {
         return howMany;
 
     }
+    // calculates how many grades are smaller than 4 in specific course
+    // calculates how many CP professor need to lead
+
     // CRUD C - create; R - retrieve, U - update, D - delete
 
     public static Student retreiveStudentByPersonCode(String inputPersonCode) throws Exception {
@@ -251,12 +268,12 @@ public class MainService {
     public static void createStudent(String inputName, String inputSurname, String inputPersonCode) throws Exception {
         //TODO
         //1. do validation
-        if (inputName == null || inputSurname == null || inputPersonCode == null)
+        if( inputName == null || inputSurname == null || inputPersonCode == null)
             throw new Exception("Problems with input args");
         //2. need to go through every student in the allStudents arraylist
         //3. need to check if there is already student with the same personCode
-        for (Student tempSt : allStudents) {
-            if (tempSt.getPersonCode().equals(inputPersonCode)) {
+        for(Student tempSt: allStudents) {
+            if(tempSt.getPersonCode().equals(inputPersonCode)) {
                 //4. if it is - throw an exception
                 throw new Exception("Student is already in the system");
             }
@@ -269,21 +286,44 @@ public class MainService {
 
     }
 
-    public static void updateStudentByPersonCode(String name, String surname, String personCode) throws Exception {
-        if (name == null || surname == null || personCode == null)
+    public static void updateStudentByPersonCode(String inputName, String inputSurname, String inputPersonCode) throws Exception
+    {
+        //1. do validation
+        if( inputName == null || inputSurname == null || inputPersonCode == null)
             throw new Exception("Problems with input args");
-        for (Student tempSt : allStudents) {
-            if (tempSt.getPersonCode().equals(personCode)) {
-                // 3. if it is - need to return this student
-                tempSt.setStudent_name(name);
-                tempSt.setStudent_surname(surname);
+
+        //2. search the student by its personCode
+        for(Student tempSt: allStudents){
+            if(tempSt.getPersonCode().equals(inputPersonCode)) {
+                //3. update name and surname
+                tempSt.setName(inputName);
+                tempSt.setSurname(inputSurname);
                 return;
             }
-
-
         }
+        //4. throw an exceptions if there is not such student
         throw new Exception("Student is not found");
 
 
+
     }
+
+    public static void deleteStudentByPersonCode(String inputPersonCode) throws Exception {
+        if(inputPersonCode == null) throw new Exception("Problems with input args");
+
+
+        for(Student tempSt: allStudents) {
+            if(tempSt.getPersonCode().equals(inputPersonCode)) {
+                allStudents.remove(tempSt);
+                return;
+            }
+        }
+
+        throw new Exception("Student is not found");
+
+    }
+
+
+
+
 }

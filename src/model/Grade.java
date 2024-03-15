@@ -3,6 +3,8 @@ package model;
 public class Grade {
 
     //1. variables
+
+    //1. variables
     private long gID;
     private int value;
     private Student student;
@@ -78,8 +80,10 @@ public class Grade {
     //20000: Viktors Kokin gets 8 in JAVA
     public String toString()
     {
-        return gID + ": " + student.getStudent_name() + " " + student.getStudent_surname() + " gets " + value +
+        return gID + ": " + student.getName() + " " + student.getSurname() + " gets " + value +
                 " in " + course.getTitle();
     }
 
+
+    //5. other functions
 }
