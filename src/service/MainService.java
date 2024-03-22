@@ -1,39 +1,37 @@
 package service;
 
-import model.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import model.Course;
+import model.Degree;
+import model.Grade;
+import model.Person;
+import model.Professor;
+import model.Student;
+
 public class MainService {
-    private static ArrayList<Professor> allProfessors = new ArrayList<Professor>();
-    private static ArrayList<Student> allStudents = new ArrayList<Student>();
+
+    private static ArrayList<Person> allPersons = new ArrayList<Person>();
     private static ArrayList<Course> allCourses = new ArrayList<Course>();
     private static ArrayList<Grade> allGrades = new ArrayList<Grade>();
 
     public static void main(String[] args) {
         Professor pr1 = new Professor();// John Big - default Professor
-        Professor pr2 = new Professor("Karina", "Skirmante",122334-34567, Degree.mg);
-        Professor pr3 = new Professor("Estere", "Vitola", 213243-23456,Degree.mg);
-        Professor pr4 = new Professor("Marcis", "Naktins", 124567-45673,Degree.mg);
-        allProfessors.addAll(Arrays.asList(pr1, pr2, pr3, pr4));
-        // TODO take a look to ArrayList class in JAVA documentations
-        for (int i = 0; i < allProfessors.size(); i++) {
-            System.out.println(allProfessors.get(i));
-        }
-        System.out.println("------------------------------");
-        for (Professor tempPr : allProfessors) {
-            System.out.println(tempPr);
-        }
-        System.out.println("------------------------------");
+        Professor pr2 = new Professor("Karina", "Skirmante","122334-34567", Degree.mg);
+        Professor pr3 = new Professor("Estere", "Vitola","213243-23456", Degree.mg);
+        Professor pr4 = new Professor("Marcis", "Naktins", "234123-45632", Degree.mg);
+
+        allPersons.addAll(Arrays.asList(pr1, pr2, pr3, pr4));
+
 
         Student st1 = new Student();// Lara Bernardes student
         Student st2 = new Student("Viktors", "Kokin", "123456-09876");
         Student st3 = new Student("Davyd", "Akimov", "121298-67894");
-        allStudents.addAll(Arrays.asList(st1, st2, st3));
+        allPersons.addAll(Arrays.asList(st1, st2, st3));
 
-        for (Student tempSt : allStudents) {
-            System.out.println(tempSt);
+        for (Person tempP : allPersons) {
+            System.out.println(tempP);
         }
 
         Course c1 = new Course();
@@ -78,16 +76,24 @@ public class MainService {
                     + calculateHowManyCoursesbyProfessor(pr3) + " courses");
 
             System.out.println("------------------------");
-            for (Student tempSt : allStudents) {
-                System.out.println(
-                        tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+            for (Person tempP : allPersons) {
+                if(tempP instanceof Student)
+                {
+                    Student tempSt  = (Student)tempP;
+                    System.out.println(
+                            tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+                }
             }
 
-            sortStudents();
+            //sortStudents();
             System.out.println("------------------------");
-            for (Student tempSt : allStudents) {
-                System.out.println(
-                        tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+            for (Person tempP : allPersons) {
+                if(tempP instanceof Student) {
+
+                    Student tempSt  = (Student)tempP;
+                    System.out.println(
+                            tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+                }
             }
 
 
@@ -100,22 +106,28 @@ public class MainService {
             createStudent("Sarah", "Green", "456789-87654");
 
             System.out.println("Create student testing (Sarah) -> ");
-            for (Student tempSt : allStudents) {
-                System.out.println(tempSt);
+            for (Person tempP : allPersons) {
+                if(tempP instanceof Student) {
+                    System.out.println(tempP);
+                }
             }
 
 
             updateStudentByPersonCode("Viktors", "Sorkin", "123456-09876");
             System.out.println("Update student testing (Viktors) -> ");
-            for (Student tempSt : allStudents) {
-                System.out.println(tempSt);
+            for (Person tempP : allPersons) {
+                if(tempP instanceof Student) {
+                    System.out.println(tempP);
+                }
             }
 
             deleteStudentByPersonCode("121298-67894");
 
             System.out.println("Delete student testing (Davyd) -> ");
-            for (Student tempSt : allStudents) {
-                System.out.println(tempSt);
+            for (Person tempP : allPersons) {
+                if(tempP instanceof Student) {
+                    System.out.println(tempP);
+                }
             }
 
 
@@ -197,24 +209,24 @@ public class MainService {
 
         return howMany;
     }
+/*
+	public static void sortStudents() throws Exception {
 
-    public static void sortStudents() throws Exception {
+		for (int i = 0; i < allStudents.size(); i++) {
+			for (int j = 0; j < allStudents.size(); j++) {
 
-        for (int i = 0; i < allStudents.size(); i++) {
-            for (int j = 0; j < allStudents.size(); j++) {
+				Student tempI = allStudents.get(i);
+				Student tempJ = allStudents.get(j);
+				if (calculateAVGForStudent(tempJ) < calculateAVGForStudent(tempI)) {
+					Student temp = allStudents.get(i);
+					allStudents.set(i, allStudents.get(j));
+					allStudents.set(j, temp);
+				}
 
-                Student tempI = allStudents.get(i);
-                Student tempJ = allStudents.get(j);
-                if (calculateAVGForStudent(tempJ) < calculateAVGForStudent(tempI)) {
-                    Student temp = allStudents.get(i);
-                    allStudents.set(i, allStudents.get(j));
-                    allStudents.set(j, temp);
-                }
-
-            }
-        }
-    }
-
+			}
+		}
+	}
+*/
     // TODO
     // calculates how many professors have phd as degree
 
@@ -222,9 +234,13 @@ public class MainService {
 
         int howMany = 0;
 
-        for (Professor tempPr : allProfessors) {
-            if (tempPr.getProfDegree().equals(Degree.phd)) {
-                howMany++;
+        for (Person tempP: allPersons) {
+            if(tempP instanceof Professor)
+            {
+                Professor tempPr = (Professor)tempP;
+                if (tempPr.getProfDegree().equals(Degree.phd)) {
+                    howMany++;
+                }
             }
         }
 
@@ -251,10 +267,10 @@ public class MainService {
          * allStudents.get(i); } }
          */
 
-        for (Student tempSt : allStudents) {
-            if (tempSt.getPersonCode().equals(inputPersonCode)) {
+        for (Person tempP : allPersons) {
+            if (tempP instanceof Student && tempP.getPersonCode().equals(inputPersonCode)) {
                 // 3. if it is - need to return this student
-                return tempSt;
+                return (Student)tempP;
             }
         }
         // 4. after for loop it is necessary to throw an execption (There is not such
@@ -272,8 +288,8 @@ public class MainService {
             throw new Exception("Problems with input args");
         //2. need to go through every student in the allStudents arraylist
         //3. need to check if there is already student with the same personCode
-        for(Student tempSt: allStudents) {
-            if(tempSt.getPersonCode().equals(inputPersonCode)) {
+        for (Person tempP : allPersons) {
+            if(tempP instanceof Student && tempP.getPersonCode().equals(inputPersonCode)) {
                 //4. if it is - throw an exception
                 throw new Exception("Student is already in the system");
             }
@@ -281,7 +297,7 @@ public class MainService {
         //5. if it is not - create a new student
         Student student = new Student(inputName, inputSurname, inputPersonCode);
         //6. store this student in allStudents arraylist
-        allStudents.add(student);
+        allPersons.add(student);
 
 
     }
@@ -292,12 +308,13 @@ public class MainService {
         if( inputName == null || inputSurname == null || inputPersonCode == null)
             throw new Exception("Problems with input args");
 
+
         //2. search the student by its personCode
-        for(Student tempSt: allStudents){
-            if(tempSt.getPersonCode().equals(inputPersonCode)) {
+        for(Person tempP: allPersons){
+            if(tempP instanceof Student && tempP.getPersonCode().equals(inputPersonCode)) {
                 //3. update name and surname
-                tempSt.setName(inputName);
-                tempSt.setSurname(inputSurname);
+                tempP.setName(inputName);
+                tempP.setSurname(inputSurname);
                 return;
             }
         }
@@ -312,9 +329,9 @@ public class MainService {
         if(inputPersonCode == null) throw new Exception("Problems with input args");
 
 
-        for(Student tempSt: allStudents) {
-            if(tempSt.getPersonCode().equals(inputPersonCode)) {
-                allStudents.remove(tempSt);
+        for(Person tempP: allPersons) {
+            if(tempP instanceof Student &&   tempP.getPersonCode().equals(inputPersonCode)) {
+                allPersons.remove(tempP);
                 return;
             }
         }
@@ -322,6 +339,9 @@ public class MainService {
         throw new Exception("Student is not found");
 
     }
+
+
+
 
 
 
